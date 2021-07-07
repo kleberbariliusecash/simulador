@@ -3,6 +3,5 @@ export class Simula {
     qtdLojas: number = 10;
     ticketMedio: number = 40;
     qtdVendedoresLoja: number = 10;
-    qtdVendedores: number = 100;
     simulado: boolean = false;
 }

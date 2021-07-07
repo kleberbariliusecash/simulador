@@ -1,7 +1,195 @@
-<a *ngIf="ra.resultados[4]===1" href="#" (click)="teste()">
-  projecao works!
-</a>
-<p *ngIf="!ra">
-  Sem dados para exibir
-</p>
+<div class="container">
+  <div class="row">
 
+   
+    <div id="chart" style="width: 50%;">
+      <apx-chart
+      style="width: 300%;"
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [stroke]="chartOptions.stroke"
+        [colors]="chartOptions.colors"
+        [title]="chartOptions.title"
+        [subtitle]="chartOptions.subtitle"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [xaxis]="chartOptions.xaxis"
+        [tooltip]="chartOptions.tooltip"
+      ></apx-chart>
+    </div>
+
+    <div id="chart" style="width: 50%;">
+      <apx-chart
+      style="width: 300%;"
+        [series]="chartOptions2.series"
+        [chart]="chartOptions2.chart"
+        [dataLabels]="chartOptions2.dataLabels"
+        [stroke]="chartOptions2.stroke"
+        [colors]="chartOptions2.colors"
+        [title]="chartOptions2.title"
+        [subtitle]="chartOptions2.subtitle"
+        [plotOptions]="chartOptions2.plotOptions"
+        [yaxis]="chartOptions2.yaxis"
+        [xaxis]="chartOptions2.xaxis"
+        [tooltip]="chartOptions2.tooltip"
+      ></apx-chart>
+    </div>
+
+    <div>
+
+    </div>
+
+    <div>
+
+      <h1 class="display-5 detalhes">Confira mais alguns benefícios que irão alavancar sua empresa nas vendas</h1>
+      <div class="card-group">
+        <div class="card card1">
+          <div class="card-body">
+            <h5 class="card-title">Pior Cenário</h5>
+            <p class="card-text">Usar como base o 5% e explicar que até com esse aumento baixo da lucroThis is a wider card with supporting text below as a natural lead-in to additional content. his content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card card2">
+        
+          <div class="card-body">
+            <h5 class="card-title">Melhor Cenário</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card card1">
+          
+          <div class="card-body">
+            <h5 class="card-title">Pouco Investimento</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Vendas Mensal</th>
+          <th scope="col">Vendas Anuais</th>
+          <th scope="col">Média diária</th>
+          <th scope="col">Média semanal</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td [innerHTML]="use.resultados[0]"></td>
+          <td [innerHTML]="use.resultados[1]"></td>
+          <td [innerHTML]="use.resultados[2]"></td>
+          <td [innerHTML]="use.resultados[3]"></td>
+
+        </tr>
+      </tbody>
+      <br />
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Vendas por dia Vendedor</th>
+          <th scope="col">Vendas Semanais</th>
+          <th scope="col">Vendas por mês (unidade)</th>
+          <th scope="col">Vendas no mês R$</th>
+          <th scope="col">Crescimento</th>
+          <th scope="col">Vendas no ano R$</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td [innerHTML]="use.projecao[0]"></td>
+          <td [innerHTML]="use.projecao[1]"></td>
+          <td [innerHTML]="use.projecao[2]"></td>
+          <td [innerHTML]="use.projecao[3]"></td>
+          <td [innerHTML]="use.projecao[4]"></td>
+          <td [innerHTML]="use.projecao[5]"></td>
+
+        </tr>
+      </tbody>
+    </table>
+
+
+    
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Taxa de Crescimento</th>
+          <th scope="col">Venda Extra</th>
+          <th scope="col">Custo useCash</th>
+          <th scope="col">Lucro Mensal R$</th>
+          <th scope="col">Lucro Anual</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td [innerHTML]="use.melhorCenario[0]"></td>
+          <td [innerHTML]="use.melhorCenario[1]"></td>
+          <td [innerHTML]="use.melhorCenario[2]"></td>
+          <td [innerHTML]="use.melhorCenario[3]"></td>
+          <td [innerHTML]="use.melhorCenario[4]"></td>
+
+        </tr>
+    </table>
+
+
+    <form #f="ngForm">
+
+      <div class="col-md-4">
+        <label id="center" for="formControlRange">Simule seu próprio cenário de aumento de vendas em %</label>
+        <input name="crescimentoPiorCenario" ngModel type="range" id="formControlRange" min="1" max="100"
+          oninput="this.nextElementSibling.value = this.value"><output id="output">50
+
+        </output>
+
+
+        <input (click)="simulaPiorCenario(f)" class="btn btn-primary mt-4" value="Simular">
+
+      </div>
+
+    </form>
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Taxa de Crescimento</th>
+          <th scope="col">Venda Extra</th>
+          <th scope="col">Custo useCash</th>
+          <th scope="col">Lucro Mensal R$</th>
+          <th scope="col">Lucro Anual</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td [innerHTML]="use.piorCenario[0]"></td>
+          <td [innerHTML]="use.piorCenario[1]"></td>
+          <td [innerHTML]="use.piorCenario[2]"></td>
+          <td bgcolor="#42f5b6" [innerHTML]="use.piorCenario[3]"></td>
+          <td [innerHTML]="use.piorCenario[4]"></td>
+          
+
+        </tr>
+        <button (click)="voltar()" class="btn btn-primary btn-sm" >Voltar</button>
+    </table>  
+
+   
+
+</div>
+
+</div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Teste } from './simulador/projecao/teste.model';
 
 @Component({
   selector: 'sim-root',

@@ -10,7 +10,7 @@ export class UseCash {
     resultados: Number[] = [];
     projecao: Number[] = [];
     melhorCenario: Number[] = [];
-    piorCenario: Number[] = [];
+    cenarioPersonalizado: Number[] = [];
     
     
 }

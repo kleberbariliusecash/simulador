@@ -98,20 +98,20 @@
           <th scope="col">Vendas Semanais</th>
           <th scope="col">Vendas por mês (unidade)</th>
           <th scope="col">Vendas no mês R$</th>
-          <th scope="col">Crescimento</th>
           <th scope="col">Vendas no ano R$</th>
+          <th scope="col">Crescimento</th>
 
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td [innerHTML]="use.projecao[0]"></td>
           <td [innerHTML]="use.projecao[1]"></td>
           <td [innerHTML]="use.projecao[2]"></td>
           <td [innerHTML]="use.projecao[3]"></td>
-          <td [innerHTML]="use.projecao[4]"></td>
+          <td [innerHTML]="use.projecao[0]"></td>
           <td [innerHTML]="use.projecao[5]"></td>
+          <td [innerHTML]="use.projecao[4]"></td>
 
         </tr>
       </tbody>
@@ -124,11 +124,11 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Taxa de Crescimento</th>
-          <th scope="col">Venda Extra</th>
-          <th scope="col">Custo useCash</th>
+          <th scope="col">Taxa de Crescimento %</th>
+          <th scope="col">Venda Extra R$</th>
+          <th scope="col">Custo useCash R$</th>
           <th scope="col">Lucro Mensal R$</th>
-          <th scope="col">Lucro Anual</th>
+          <th scope="col">Lucro Anual R$</th>
 
         </tr>
       </thead>
@@ -149,13 +149,13 @@
 
       <div class="col-md-4">
         <label id="center" for="formControlRange">Simule seu próprio cenário de aumento de vendas em %</label>
-        <input name="crescimentoPiorCenario" ngModel type="range" id="formControlRange" min="1" max="100"
+        <input name="CenarioPersonalizado" ngModel type="range" id="formControlRange" min="1" max="100"
           oninput="this.nextElementSibling.value = this.value"><output id="output">50
 
         </output>
 
 
-        <input (click)="simulaPiorCenario(f)" class="btn btn-primary mt-4" value="Simular">
+        <input (click)="simulaCenarioPersonalizado(f)" class="btn btn-primary mt-4" value="Simular">
 
       </div>
 
@@ -166,22 +166,22 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Taxa de Crescimento</th>
-          <th scope="col">Venda Extra</th>
-          <th scope="col">Custo useCash</th>
+          <th scope="col">Taxa de Crescimento %</th>
+          <th scope="col">Venda Extra R$</th>
+          <th scope="col">Custo useCash R$</th>
           <th scope="col">Lucro Mensal R$</th>
-          <th scope="col">Lucro Anual</th>
+          <th scope="col">Lucro Anual R$</th>
 
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td [innerHTML]="use.piorCenario[0]"></td>
-          <td [innerHTML]="use.piorCenario[1]"></td>
-          <td [innerHTML]="use.piorCenario[2]"></td>
-          <td bgcolor="#42f5b6" [innerHTML]="use.piorCenario[3]"></td>
-          <td [innerHTML]="use.piorCenario[4]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[0]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[1]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[2]"></td>
+          <td bgcolor="#42f5b6" [innerHTML]="use.cenarioPersonalizado[3]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[4]"></td>
           
 
         </tr>

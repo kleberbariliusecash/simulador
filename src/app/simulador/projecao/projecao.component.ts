@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UseCash } from '../shared/useCash';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   ApexAxisChartSeries,
@@ -41,7 +40,8 @@ export class ProjecaoComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
   @ViewChild("chart2") chart2: ChartComponent;
   public chartOptions2: Partial<ChartOptions>;
-
+ 
+  jumb: boolean = false;
 
   constructor(
     private use: UseCash,
@@ -218,13 +218,10 @@ export class ProjecaoComponent implements OnInit {
   }
 
   voltar() {
-
     window.location.href = "/";
-    //let piorCenario = Number(this.use.resultados[0])*5/100
-    //this.use.piorCenario.push(piorCenario)
   }
   simulaCenarioPersonalizado(form: NgForm): void {
-
+    this.jumb = true
     if (form.form.value.CenarioPersonalizado) {
       var cresc = form.form.value.CenarioPersonalizado
     } else {
@@ -235,9 +232,8 @@ export class ProjecaoComponent implements OnInit {
     let lucroMensal = vendaExtra - mensalidade
     let lucroAnual = lucroMensal * 12
 
-    this.use.cenarioPersonalizado.push(cresc, Math.round(vendaExtra), mensalidade, Math.round(lucroMensal), Math.round(lucroAnual))
-    //window.location.reload()
-
+    this.use.cenarioPersonalizado.push(cresc, Math.round(vendaExtra), mensalidade, Math.round(lucroMensal), Math.round(lucroAnual), mensalidade*12)
+   
 
   }
 

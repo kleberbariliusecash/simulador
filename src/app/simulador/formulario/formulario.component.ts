@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Simula } from '../shared/simula';
 import { UseCash } from '../shared/useCash';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sim-formulario',
@@ -17,7 +16,6 @@ export class FormularioComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private use: UseCash,
-    private route: ActivatedRoute,
     private router: Router
 
   ) { }
@@ -33,7 +31,6 @@ export class FormularioComponent implements OnInit {
       qtdLojas: [simula.qtdLojas],
       ticketMedio: [simula.ticketMedio],
       qtdVendedoresLoja: [simula.qtdVendedoresLoja],
-      simulado: [simula.simulado],
     })
   }
 
@@ -47,8 +44,8 @@ export class FormularioComponent implements OnInit {
     let mediaDiariaVendedor = mediaSemanalVendedor / 6
     console.log(this.form.value.qtdMes,qtdVendedores, mediaDiariaVendedor, mediaSemanalVendedor)
 
-
     this.use.formData.push(this.form.value.qtdMes, this.form.value.qtdLojas, this.form.value.ticketMedio, this.form.value.qtdVendedoresLoja, qtdVendedores)
+    
     this.use.resultados.push(vendaMensal, vendaAnual, mediaDiariaVendedor, mediaSemanalVendedor, 1)
     /*
       Dados do formulário armazenados no use.formData
@@ -75,10 +72,11 @@ export class FormularioComponent implements OnInit {
     let lucroMensal = Number(vendaExtra) - mensalidade
     let lucroAnual = lucroMensal * 12
     let aumento = Number(this.use.projecao[3]) - Number(this.use.resultados[0])
+    let anual = mensalidade*12
 
 
     console.log(lucroAnual)
-    this.use.melhorCenario.push(crescimentoP, vendaExtra, mensalidade, lucroMensal, lucroAnual, aumento)
+    this.use.melhorCenario.push(crescimentoP, vendaExtra, mensalidade, lucroMensal, lucroAnual, aumento, mensalidade*12)
 
     this.router.navigate(['/projecao']);
 

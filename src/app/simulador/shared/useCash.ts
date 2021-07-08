@@ -11,6 +11,4 @@ export class UseCash {
     projecao: Number[] = [];
     melhorCenario: Number[] = [];
     cenarioPersonalizado: Number[] = [];
-    
-    
 }

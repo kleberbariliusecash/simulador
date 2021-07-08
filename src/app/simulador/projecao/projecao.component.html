@@ -35,41 +35,142 @@
         [tooltip]="chartOptions2.tooltip"
       ></apx-chart>
     </div>
+  </div>
 
     <div>
 
     </div>
 
     <div>
+  
 
       <h1 class="display-5 detalhes">Confira mais alguns benefícios que irão alavancar sua empresa nas vendas</h1>
-      <div class="card-group">
-        <div class="card card1">
-          <div class="card-body">
-            <h5 class="card-title">Pior Cenário</h5>
-            <p class="card-text">Usar como base o 5% e explicar que até com esse aumento baixo da lucroThis is a wider card with supporting text below as a natural lead-in to additional content. his content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card card2">
+      <div class="card-group card1">
+        
+        <div class="card borderCard">
         
           <div class="card-body">
             <h5 class="card-title">Melhor Cenário</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text">E se ferramenta engajar o suficiente, aumentando uma venda diária pra cada vendedor? Confira seus ganhos </p>
+            <ul class="list-group">
+              <li id="melhorCenario" class="list-group-item d-flex justify-content-between align-items-center">
+                Taxa de Crescimento
+                <span [innerHTML]="use.melhorCenario[0]+'%'" class="badge badge-success badge-pill"></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Lucro Mensal
+                <span [innerHTML]="'R$'+use.melhorCenario[3]+',00'" class="badge badge-success badge-pill"></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Lucro Anual
+                <span [innerHTML]="'R$'+use.melhorCenario[4]+',00'" class="badge badge-success badge-pill"></span>
+              </li>
+              
+            </ul>
           </div>
         </div>
-        <div class="card card1">
+        <div class="card borderCard">
+        
+          <div class="card-body">
+            <h5 class="card-title">Custos da Ferramenta</h5>
+            <p class="card-text">A UseCash possui um custo-benefício muito bom, reduzindo o CMV. Confira os custos que você terá com a ferramenta</p>
+            <ul class="list-group">
+              <li id="melhorCenario" class="list-group-item d-flex justify-content-between align-items-center">
+                Mensalidade
+                <span [innerHTML]="'R$'+use.melhorCenario[2]+',00'" class="badge badge-danger badge-pill"></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                No ano todo você gastará apenas
+                <span [innerHTML]="'R$'+use.melhorCenario[6]+',00'" class="badge badge-danger badge-pill"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card borderCard">
           
           <div class="card-body">
-            <h5 class="card-title">Pouco Investimento</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">Benefícios da Ferramenta</h5>
+            <ul class="list-group">
+              <li class="list-group-item">Engajamento da equipe de vendas <i class="fa fa-users" aria-hidden="true"></i>
+              </li>
+              <li class="list-group-item">Indicadores de Performance <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              </li>
+              <li class="list-group-item">Metas Semanais e Automatizadas <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+              </li>
+            </ul>
+
+
+    
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Cenário Personalizado</h5>
+            <p class="card-text">Use nosso simulador de crescimento de vendas, com ele você terá um norte para saber se vale a pena ou não contratar a ferramenta </p>
+            <form #f="ngForm">
+              <div>
+                <label  for="formControlRange">Simule o aumento em %</label>
+                <input name="CenarioPersonalizado" ngModel type="range" id="formControlRange" min="1" max="100"
+                  oninput="this.nextElementSibling.value = this.value"><output id="output">50
+                </output>
+                <input (click)="simulaCenarioPersonalizado(f)" class="btn btn-success btn-md" value="Simular">
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+   
+
+    <div class="jumbotron jumbotron-fluid"  [hidden]="!jumb">
+      <div class="container">
+        <h1 class="display-4">Cenário Personalizado</h1>
+        <p class="lead">Aqui é o resumo do cenário de aumento que você mesmo projetou? E aí, gostou?</p>
+        <ul class="list-group">
+          <li id="melhorCenario" class="list-group-item d-flex justify-content-between align-items-center">
+            Taxa de Crescimento
+            <span [innerHTML]="use.cenarioPersonalizado[0]+'%'" class="badge badge-success badge-pill"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Lucro Mensal
+            <span [innerHTML]="'R$'+use.cenarioPersonalizado[3]+',00'" class="badge badge-success badge-pill"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Lucro Anual
+            <span [innerHTML]="'R$'+use.cenarioPersonalizado[4]+',00'" class="badge badge-success badge-pill"></span>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
     <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th [innerHTML]="'Cenário Personalizado '+use.cenarioPersonalizado[0]" scope="col"></th>
+          <th scope="col">Taxa de Crescimento %</th>
+          <th scope="col">Venda Extra R$</th>
+          <th scope="col">Custo useCash R$</th>
+          <th scope="col">Lucro Mensal R$</th>
+          <th scope="col">Lucro Anual R$</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td [innerHTML]="use.cenarioPersonalizado[1]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[2]"></td>
+          <td bgcolor="#42f5b6" [innerHTML]="use.cenarioPersonalizado[3]"></td>
+          <td [innerHTML]="use.cenarioPersonalizado[4]"></td>
+          
+
+        </tr>
+        <button (click)="voltar()" class="btn btn-primary btn-sm" >Voltar</button>
+    </table>  
+
+    
+    <table class="table" id='tee'>
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -144,52 +245,7 @@
         </tr>
     </table>
 
-
-    <form #f="ngForm">
-
-      <div class="col-md-4">
-        <label id="center" for="formControlRange">Simule seu próprio cenário de aumento de vendas em %</label>
-        <input name="CenarioPersonalizado" ngModel type="range" id="formControlRange" min="1" max="100"
-          oninput="this.nextElementSibling.value = this.value"><output id="output">50
-
-        </output>
-
-
-        <input (click)="simulaCenarioPersonalizado(f)" class="btn btn-primary mt-4" value="Simular">
-
-      </div>
-
-    </form>
-
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Taxa de Crescimento %</th>
-          <th scope="col">Venda Extra R$</th>
-          <th scope="col">Custo useCash R$</th>
-          <th scope="col">Lucro Mensal R$</th>
-          <th scope="col">Lucro Anual R$</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td [innerHTML]="use.cenarioPersonalizado[0]"></td>
-          <td [innerHTML]="use.cenarioPersonalizado[1]"></td>
-          <td [innerHTML]="use.cenarioPersonalizado[2]"></td>
-          <td bgcolor="#42f5b6" [innerHTML]="use.cenarioPersonalizado[3]"></td>
-          <td [innerHTML]="use.cenarioPersonalizado[4]"></td>
-          
-
-        </tr>
-        <button (click)="voltar()" class="btn btn-primary btn-sm" >Voltar</button>
-    </table>  
-
    
-
-</div>
+  
 
 </div>

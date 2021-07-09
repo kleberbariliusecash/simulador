@@ -1,33 +1,46 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Simulador de Retorno do Investimento da UseCash</h1>
-    <p class="lead">Preencha todos os campos para poder visualizar os resultados</p>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="qtdMes">Quantidade de unidades vendidas por mês</label>
-        <input type="text" class="form-control" name="qtdMes" id="qtdMes" required formControlName="qtdMes">
+<div class="container">
+  <div class="row">
+
+
+    <div id="telaForm" style="width: 50%;">
+      <p class="lead negrito">SIMULADOR DE INVESTIMENTO USECASH</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" (ngSubmit)="aa()">
+        <div class="form-group">
+          <label for="qtdMes">Quantidade de unidades vendidas por mês</label>
+          <input type="text" class="form-control" name="qtdMes" id="qtdMes" required formControlName="qtdMes">
+        </div>
+
+        <div class="form-group">
+          <label for="qtdLojas">Quantidade de lojas</label>
+          <input type="text" class="form-control" name="qtdLojas" id="qtdLojas" required formControlName="qtdLojas">
+        </div>
+
+        <div class="form-group">
+          <label for="ticketMedio">Ticket médio R$</label>
+          <input type="text" class="form-control" name="ticketMedio" id="ticketMedio" required
+            formControlName="ticketMedio">
+        </div>
+
+        <div class="form-group">
+          <label for="qtdVendedoresLoja">Quantidade de vendedores por loja</label>
+          <input type="text" class="form-control" name="qtdVendedoresLoja" id="qtdVendedoresLoja" required
+            formControlName="qtdVendedoresLoja">
+        </div>
+
+        <input [disabled]="!form.valid" id="btnSimular" type="submit" class="btn btn-block btn-lg" value="Simular">
+
+      </form>
+    </div>
+
+    <div id="telaGrafico" style="width: 50%;">
+      <div id="chart-year">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+          [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [xaxis]="chartOptions.xaxis"
+          [subtitle]="chartOptions.subtitle" [colors]="chartOptions.colors" [states]="chartOptions.states"
+          [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"></apx-chart>
       </div>
-    
-      <div class="form-group">
-        <label for="qtdLojas">Quantidade de lojas</label>
-        <input type="text" class="form-control" name="qtdLojas" id="qtdLojas" required formControlName="qtdLojas">
-      </div>
-    
-      <div class="form-group">
-        <label for="ticketMedio">Ticket médio R$</label>
-        <input type="text" class="form-control" name="ticketMedio" id="ticketMedio" required formControlName="ticketMedio">
-      </div>
-    
-      <div class="form-group">
-        <label for="qtdVendedoresLoja">Quantidade de vendedores por loja</label>
-        <input type="text" class="form-control" name="qtdVendedoresLoja" id="qtdVendedoresLoja" required formControlName="qtdVendedoresLoja">
-      </div>
-    
-      <input id="btnSimular" type="submit" class="btn btn-block btn-lg" value="Simular">
-    
-    </form>
-  
-  
-  
+    </div>
+  </div>
+  <div>
   </div>
 </div>

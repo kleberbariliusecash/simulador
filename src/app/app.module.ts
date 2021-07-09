@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormularioComponent } from './simulador/formulario/formulario.component';
 import { ProjecaoComponent } from './simulador/projecao/projecao.component';
 import { NgApexchartsModule } from "ng-apexcharts";
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -16,14 +16,14 @@ import { NgApexchartsModule } from "ng-apexcharts";
     AppComponent,
     FormularioComponent,
     ProjecaoComponent,
-  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,30 +3,72 @@ import { UseCash } from '../shared/useCash';
 import { NgForm } from '@angular/forms';
 
 import {
-  ApexAxisChartSeries,
   ApexChart,
+  ApexAxisChartSeries,
   ChartComponent,
-  ApexTitleSubtitle,
   ApexDataLabels,
-  ApexStroke,
-  ApexYAxis,
-  ApexXAxis,
   ApexPlotOptions,
-  ApexTooltip
+  ApexYAxis,
+  ApexLegend,
+  ApexStates,
+  ApexGrid,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
+
+type ApexXAxis = {
+  type?: "category" | "datetime" | "numeric";
+  categories?: any;
+  labels?: {
+    style?: {
+      colors?: string | string[];
+      fontSize?: string;
+    };
+  };
+};
+var colors = [
+  "#008FFB",
+  "#00E396",
+  "#FEB019",
+  "#FF4560",
+  "#775DD0",
+  "#00D9E9",
+  "#FF66C3"
+];
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  xaxis: ApexXAxis;
-  stroke: ApexStroke;
   dataLabels: ApexDataLabels;
   plotOptions: ApexPlotOptions;
   yaxis: ApexYAxis;
-  tooltip: ApexTooltip;
-  colors: string[];
-  title: ApexTitleSubtitle;
+  xaxis: ApexXAxis;
+  grid: ApexGrid;
   subtitle: ApexTitleSubtitle;
+  colors: string[];
+  states: ApexStates;
+  title: ApexTitleSubtitle;
+  legend: ApexLegend;
+  tooltip: any; //ApexTooltip;
+};
+
+declare global {
+  interface Window {
+    Apex: any;
+  }
+}
+
+window.Apex = {
+  chart: {
+    toolbar: {
+      show: false
+    }
+  },
+  tooltip: {
+    shared: false
+  },
+  legend: {
+    show: false
+  }
 };
 
 @Component({
@@ -36,192 +78,38 @@ export type ChartOptions = {
 })
 export class ProjecaoComponent implements OnInit {
 
-  @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-  @ViewChild("chart2") chart2: ChartComponent;
-  public chartOptions2: Partial<ChartOptions>;
  
+  @ViewChild("chart2") chart: ChartComponent;
+  public chartOptions2: Partial<ChartOptions>;
+  public chartQuarterOptions2: Partial<ChartOptions>;
   jumb: boolean = false;
+  valeContratar: boolean = true;
+  index: Number = 0
 
   constructor(
     private use: UseCash,
   ) {
 
 
-    this.chartOptions = {
-      series: [
-        {
-          data: [Number(this.use.resultados[0]), Number(this.use.projecao[0]),Number(this.use.melhorCenario[1]),]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 380
-      },
-      plotOptions: {
-        bar: {
-          barHeight: "100%",
-          distributed: true,
-          horizontal: true,
-          dataLabels: {
-            position: "bottom",
-          }
-        }
-      },
-      colors: [
-        "#fa3737",
-        "#07e36a",
-        "#d1e307"
-      ],
-      dataLabels: {
-        enabled: true,
-        textAnchor: "start",
-        style: {
-          colors: ["black"],
-          fontWeight: 'bold',
-          fontSize: '16'
-        },
-        formatter: function (val, opt) {
-          return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
-        },
-        offsetX: 0,
-      },
-      stroke: {
-        width: 1,
-        colors: ["black"]
-      },
-      xaxis: {
-        categories: [
-          "Vendas Mensais Atuais R$",
-          "Vendas Mensais - useCash R$",
-          "Aumento de Vendas R$",
-
-        ]
-      },
-      yaxis: {
-        labels: {
-          show: false
-        }
-      },
-      title: {
-        text: "Acompanhe como será sua evolução Mensal nas Vendas",
-        align: "center",
-        floating: true
-      },
-      subtitle: {
-        text: "Todos os números equivalem são em Reais",
-        align: "center"
-      },
-      tooltip: {
-        theme: "dark",
-        x: {
-          show: true
-        },
-        y: {
-          title: {
-            formatter: function () {
-              return "";
-            }
-          }
-        }
-      },
-    };
-
-    this.chartOptions2 = {
-      series: [
-        {
-          data: [Number(this.use.resultados[0])*12, Number(this.use.projecao[0])*12,Number(this.use.melhorCenario[1])*12]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 380
-      },
-      plotOptions: {
-        bar: {
-          barHeight: "100%",
-          distributed: true,
-          horizontal: true,
-          dataLabels: {
-            position: "bottom",
-          }
-        }
-      },
-      colors: [
-        "#fa3737",
-        "#07e36a",
-        "#d1e307"
-      ],
-      dataLabels: {
-        enabled: true,
-        textAnchor: "start",
-        style: {
-          colors: ["black"],
-          fontWeight: 'bold',
-          fontSize: '16'
-        },
-        formatter: function (val, opt) {
-          return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
-        },
-        offsetX: 0,
-        dropShadow: {
-        }
-      },
-      stroke: {
-        width: 1,
-        colors: ["black"]
-      },
-      xaxis: {
-        categories: [
-          "Vendas Anuais R$",
-          "Vendas Anuais - useCash R$",
-          "Aumento de Vendas R$",
-
-        ]
-      },
-      yaxis: {
-        labels: {
-          show: false
-        }
-      },
-      title: {
-        text: "Acompanhe como será sua evolução Anual nas Vendas",
-        align: "center",
-        floating: true
-      },
-      subtitle: {
-        text: "Todos os números equivalem a reais",
-        align: "center"
-      },
-      tooltip: {
-        theme: "dark",
-        x: {
-          show: true
-        },
-        y: {
-          title: {
-            formatter: function () {
-              return "";
-            }
-          }
-        }
-      },
-    };
-
+   
   }
 
   ngOnInit() {
-    if (this.use.resultados[4] != 1) {
-      this.voltar()
-  }
+    
 
   }
 
-  voltar() {
-    window.location.href = "/";
-  }
   simulaCenarioPersonalizado(form: NgForm): void {
+    setTimeout(function () {
+      window.scrollTo(0, document.body.scrollHeight);
+  },2);
+  
+    this.use.cenarioPersonalizado = [];
     this.jumb = true
+    
+   
+    
+
     if (form.form.value.CenarioPersonalizado) {
       var cresc = form.form.value.CenarioPersonalizado
     } else {
@@ -231,6 +119,11 @@ export class ProjecaoComponent implements OnInit {
     let mensalidade = Number(this.use.precoPorLoja) * Number(this.use.formData[1])
     let lucroMensal = vendaExtra - mensalidade
     let lucroAnual = lucroMensal * 12
+    if (lucroAnual < 0){
+      this.valeContratar = false;
+    }else{
+      this.valeContratar = true;
+    } 
 
     this.use.cenarioPersonalizado.push(cresc, Math.round(vendaExtra), mensalidade, Math.round(lucroMensal), Math.round(lucroAnual), mensalidade*12)
    

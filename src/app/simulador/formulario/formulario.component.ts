@@ -260,11 +260,15 @@ export class FormularioComponent implements OnInit {
         text: "PROJEÇÃO MENSAL R$",
         offsetX: 15
       },
+     
       yaxis: {
         labels: {
-          show: false
-        }
-      }
+          formatter: function (value) {
+            return `R$${value},00`;
+          },
+          show:false,
+        },
+      },
     };
   
     

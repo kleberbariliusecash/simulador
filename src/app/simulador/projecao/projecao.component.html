@@ -1,10 +1,7 @@
 <div class="container">
-
   <div>
     <div class="card-group card1">
-
       <div class="card borderCard">
-
         <div class="card-body">
           <h5 class="card-title">Melhor Cenário</h5>
           <p class="card-text">E se ferramenta engajar o suficiente, aumentando uma venda diária pra cada vendedor?
@@ -15,14 +12,13 @@
               <span [ngStyle]="(use.melhorCenario[0])>0?{'background-color':'#42f575'} : {'background-color': '#f2433a'}" [innerHTML]="use.melhorCenario[0]+'%'" class="badge badge-success badge-pill"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Lucro Mensal
+              Lucro Líquido Mensal
               <span [ngStyle]="(use.melhorCenario[0])>0?{'background-color':'#42f575'} : {'background-color': '#f2433a'}" [innerHTML]="'R$'+use.melhorCenario[3]+',00'" class="badge badge-success badge-pill"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Lucro Anual
+              Lucro Líquido Anual
               <span [ngStyle]="(use.melhorCenario[0])>0?{'background-color':'#42f575'} : {'background-color': '#f2433a'}" [innerHTML]="'R$'+use.melhorCenario[4]+',00'" class="badge badge-success badge-pill"></span>
             </li>
-
           </ul>
         </div>
       </div>
@@ -45,9 +41,6 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="jumbotron jumbotron-fluid" id="jumb" *ngIf="jumb">
     <div class="container">
       <h3 *ngIf="valeContratar" class="vale">VALE A PENA CONTRATAR <span style="color: #42f575;">
@@ -69,13 +62,13 @@
           [innerHTML]="'R$'+use.cenarioPersonalizado[1]+',00'" class="badge badge-success badge-pill"></span>
       </h4>
       <h4 class="list-group-item d-flex justify-content-between align-items-center">
-        Lucro Mensal
+        Lucro Líquido Mensal
         <span
           [ngStyle]="(use.cenarioPersonalizado[3])>0?{'background-color':'#42f575'} : {'background-color': '#f2433a'}"
           [innerHTML]="'R$'+use.cenarioPersonalizado[3]+',00'" class="badge badge-success badge-pill"></span>
       </h4>
       <h4 class="list-group-item d-flex justify-content-between align-items-center">
-        Lucro Anual
+        Lucro Líquido Anual
         <span
           [ngStyle]="(use.cenarioPersonalizado[3])>0?{'background-color':'#42f575'} : {'background-color': '#f2433a'}"
           [innerHTML]="'R$'+use.cenarioPersonalizado[4]+',00'" class="badge badge-success badge-pill"></span>

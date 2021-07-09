@@ -4,35 +4,32 @@
 
     <div id="telaForm" style="width: 50%;">
       <p class="lead negrito">SIMULADOR DE INVESTIMENTO USECASH</p>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" (ngSubmit)="aa()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" (ngSubmit)="graficoValido()" >
         <div class="form-group">
           <label for="qtdMes">Quantidade de unidades vendidas por mês</label>
           <input type="text" class="form-control" name="qtdMes" id="qtdMes" required formControlName="qtdMes">
         </div>
-
         <div class="form-group">
           <label for="qtdLojas">Quantidade de lojas</label>
           <input type="text" class="form-control" name="qtdLojas" id="qtdLojas" required formControlName="qtdLojas">
         </div>
-
         <div class="form-group">
           <label for="ticketMedio">Ticket médio R$</label>
           <input type="text" class="form-control" name="ticketMedio" id="ticketMedio" required
             formControlName="ticketMedio">
         </div>
-
         <div class="form-group">
           <label for="qtdVendedoresLoja">Quantidade de vendedores por loja</label>
           <input type="text" class="form-control" name="qtdVendedoresLoja" id="qtdVendedoresLoja" required
             formControlName="qtdVendedoresLoja">
         </div>
-
         <input [disabled]="!form.valid" id="btnSimular" type="submit" class="btn btn-block btn-lg" value="Simular">
-
       </form>
     </div>
-
+  
     <div id="telaGrafico" style="width: 50%;">
+      <button class="btn btn-primary btn-sm" (click)="graficoValido('2')" type="submit">Projeção Mensal</button>
+      <button class="btn btn-primary btn-sm" (click)="graficoValido('1')" type="submit">Projeção Anual</button>
       <div id="chart-year">
         <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
           [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [xaxis]="chartOptions.xaxis"
@@ -40,7 +37,6 @@
           [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"></apx-chart>
       </div>
     </div>
-  </div>
   <div>
   </div>
 </div>

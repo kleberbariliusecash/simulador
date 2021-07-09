@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Simula } from '../shared/simula';
 import { UseCash } from '../shared/useCash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   ApexChart,
@@ -76,7 +77,8 @@ window.Apex = {
 @Component({
   selector: 'sim-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
+  providers:[NgbCarouselConfig]
   
 })
 
@@ -86,21 +88,17 @@ export class FormularioComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   public chartQuarterOptions: Partial<ChartOptions>;
-
   form: FormGroup;
-  graph: boolean = true
-  grapha: boolean = false;
+
+  tipoGrafico: any
+  graphView: boolean = false;
   @Input() proj: any;
   formValido: boolean = false;
   numberPattern = /^[0-9]*$/
-  
-  
-
 
   constructor(
     private formBuilder: FormBuilder,
     private use: UseCash,
-
   ) { 
    
   }
@@ -125,8 +123,6 @@ export class FormularioComponent implements OnInit {
       qtdVendedoresLoja:10
     })
   }
-
-
   onSubmit() {
 
 
@@ -175,16 +171,18 @@ export class FormularioComponent implements OnInit {
 
 
 
-    //console.log(lucroAnual)
     this.use.melhorCenario.push(crescimentoP, vendaExtra, mensalidade, lucroMensal, lucroAnual, aumento, mensalidade*12)
-    //alert(this.use.melhorCenario[0])
-  
-    //this.form.reset()
+    
 
   }
-  aa(){
-    this.grapha = true
-    this.makeData()
+  graficoValido(tipo){
+    this.tipoGrafico = this.makeData2()
+    
+    if(tipo != 1){
+      this.tipoGrafico = this.makeData()
+    }
+    this.graphView = true
+    
     this.chartGraph()
   }
 
@@ -192,15 +190,42 @@ export class FormularioComponent implements OnInit {
     this.chartOptions = {
       series: [
         {
-          name: "year",
-          data: this.makeData()
+          name: "vendas",
+          data: this.tipoGrafico
         }
       ],
       chart: {
-        id: "barYear",
+        id: "projecao-mensal",
         height: 400,
         width: "100%",
         type: "bar",
+        toolbar: {
+          show: true,
+          offsetX: 0,
+          offsetY: 0,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            customIcons: []
+          },
+          export: {
+            csv: {
+              filename: undefined,
+              columnDelimiter: ',',
+              headerCategory: 'category',
+              headerValue: 'value',
+              dateFormatter(timestamp) {
+                return new Date(timestamp).toDateString()
+              }
+            },
+           
+          },
+          autoSelected: 'zoom' 
+        },
       },
       plotOptions: {
         bar: {
@@ -256,11 +281,6 @@ export class FormularioComponent implements OnInit {
           }
         }
       },
-      title: {
-        text: "PROJEÇÃO MENSAL R$",
-        offsetX: 15
-      },
-     
       yaxis: {
         labels: {
           formatter: function (value) {
@@ -298,13 +318,39 @@ export class FormularioComponent implements OnInit {
     
         return dataYearSeries;
       }
-      
-
     
     
     //var dataSet = this.shuffleArray(arrayData);
   
   }
+  public makeData2(): any {
+    //alert(this.use.melhorCenario[1])
+      if(this.use.melhorCenario[1]){
+        
+        var dataYearSeries = [
+          {
+            x: "Venda Anual Atual",
+            y: Number(this.use.resultados[0])*12,
+            color: colors[0],
+          },
+          {
+            x: "Venda Anual com a UseCash",
+            y: Number(this.use.projecao[0])*12,
+            color: colors[1],
+          },
+          {
+            x:"Aumento nas Vendas",
+            y: Number(this.use.melhorCenario[1])*12,
+            color: colors[2],
+          },
+        ];
+    
+        return dataYearSeries;
+      }
+  }
+    
+    //var dataSet = this.shuffleArray(arrayData);
+  
   
 
   public shuffleArray(array) {

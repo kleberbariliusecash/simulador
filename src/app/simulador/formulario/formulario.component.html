@@ -1,10 +1,8 @@
 <div class="container">
   <div class="row">
-
-
     <div id="telaForm" style="width: 50%;">
       <p class="lead negrito">SIMULADOR DE INVESTIMENTO USECASH</p>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" (ngSubmit)="graficoValido()" >
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" (ngSubmit)="graficoValido()" (ngSubmit)="proj.jumbOff()" >
         <div class="form-group">
           <label for="qtdMes">Quantidade de unidades vendidas por mês</label>
           <input type="text" class="form-control" name="qtdMes" id="qtdMes" required formControlName="qtdMes">

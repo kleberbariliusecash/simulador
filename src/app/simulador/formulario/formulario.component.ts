@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Simula } from '../shared/simula';
 import { UseCash } from '../shared/useCash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -73,15 +72,13 @@ window.Apex = {
   }
 };
 
-
 @Component({
   selector: 'sim-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
-  providers:[NgbCarouselConfig]
-  
-})
+  providers: [NgbCarouselConfig]
 
+})
 
 export class FormularioComponent implements OnInit {
 
@@ -99,49 +96,46 @@ export class FormularioComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private use: UseCash,
-  ) { 
-   
+  ) {
+
   }
-  
 
   ngOnInit() {
-    this.createForm(new Simula());
+    this.createForm();
 
   }
 
-  createForm(simula: Simula) {
-    
+  createForm() {
+
     this.form = this.formBuilder.group({
-      /*
+      
       qtdMes: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       qtdLojas: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       ticketMedio: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
-      qtdVendedoresLoja: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),*/
-      qtdMes:3000,
-      qtdLojas:10,
-      ticketMedio:40,
-      qtdVendedoresLoja:10
+      qtdVendedoresLoja: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
+      /*qtdMes: 3000,
+      qtdLojas: 10,
+      ticketMedio: 40,
+      qtdVendedoresLoja: 10
+      */
     })
   }
   onSubmit() {
-
 
     this.use.melhorCenario = [];
     this.use.cenarioPersonalizado = [];
     this.use.formData = [];
     this.use.projecao = [];
     this.use.resultados = [];
-    
 
     let qtdVendedores = this.form.value.qtdLojas * this.form.value.qtdVendedoresLoja
     let vendaMensal = Number(this.form.value.ticketMedio) * Number(this.form.value.qtdMes)
     let vendaAnual = vendaMensal * 12
     let mediaSemanalVendedor = (Number(this.form.value.qtdMes) / qtdVendedores) / 4
     let mediaDiariaVendedor = mediaSemanalVendedor / 6
-    //console.log(this.form.value.qtdMes,qtdVendedores, mediaDiariaVendedor, mediaSemanalVendedor)
 
     this.use.formData.push(this.form.value.qtdMes, this.form.value.qtdLojas, this.form.value.ticketMedio, this.form.value.qtdVendedoresLoja, qtdVendedores)
-    
+
     this.use.resultados.push(vendaMensal, vendaAnual, mediaDiariaVendedor, mediaSemanalVendedor, 1)
     /*
       Dados do formulário armazenados no use.formData
@@ -156,37 +150,30 @@ export class FormularioComponent implements OnInit {
     let crescimento = (vendasMes / Number(this.use.resultados[0]) - 1)
     let crescimentoP = Math.round(crescimento * 100)
     let vendasAno = vendasMes * mediaSemanaVendedor
-    
 
-    this.use.projecao.push(vendasMes, mediaDiaVendedor, mediaSemanaVendedor, vendasMesUnidade, crescimentoP, vendasAno)
-    //console.log(this.use.projecao)
-
+    this.use.projecao.push(vendasMes, mediaDiaVendedor, mediaSemanaVendedor, vendasMesUnidade, crescimentoP, vendasAno);
     //Cenário
-   
+
     let vendaExtra = (vendasMes - Number(this.use.resultados[0]))
     let mensalidade = Number(this.use.precoPorLoja) * Number(this.use.formData[1])
     let lucroMensal = Number(vendaExtra) - mensalidade
     let lucroAnual = lucroMensal * 12
     let aumento = Number(this.use.projecao[3]) - Number(this.use.resultados[0])
-
-
-
-    this.use.melhorCenario.push(crescimentoP, vendaExtra, mensalidade, lucroMensal, lucroAnual, aumento, mensalidade*12)
-    
-
+    this.use.melhorCenario.push(crescimentoP, vendaExtra, mensalidade, lucroMensal, lucroAnual, aumento, mensalidade * 12);
   }
-  graficoValido(tipo){
+
+  graficoValido(tipo) {
     this.tipoGrafico = this.makeData2()
-    
-    if(tipo != 1){
+
+    if (tipo != 1) {
       this.tipoGrafico = this.makeData()
     }
     this.graphView = true
-    
+
     this.chartGraph()
   }
 
-  chartGraph(){
+  chartGraph() {
     this.chartOptions = {
       series: [
         {
@@ -222,9 +209,9 @@ export class FormularioComponent implements OnInit {
                 return new Date(timestamp).toDateString()
               }
             },
-           
+
           },
-          autoSelected: 'zoom' 
+          autoSelected: 'zoom'
         },
       },
       plotOptions: {
@@ -243,7 +230,7 @@ export class FormularioComponent implements OnInit {
         style: {
           colors: ["#fff"]
         },
-        formatter: function(val, opt) {
+        formatter: function (val, opt) {
           return opt.w.globals.labels[opt.dataPointIndex];
         },
         offsetX: 0,
@@ -251,9 +238,9 @@ export class FormularioComponent implements OnInit {
           enabled: true
         }
       },
-  
+
       colors: colors,
-  
+
       states: {
         normal: {
           filter: {
@@ -268,14 +255,14 @@ export class FormularioComponent implements OnInit {
           }
         }
       },
-     
+
       tooltip: {
         x: {
           show: false
         },
         y: {
           title: {
-            formatter: function(val, opts) {
+            formatter: function (val, opts) {
               return opts.w.globals.labels[opts.dataPointIndex];
             }
           }
@@ -286,115 +273,60 @@ export class FormularioComponent implements OnInit {
           formatter: function (value) {
             return `R$${value},00`;
           },
-          show:false,
+          show: false,
         },
       },
     };
-  
-    
+
+
   }
 
-   public makeData(): any {
-    //alert(this.use.melhorCenario[1])
-      if(this.use.melhorCenario[1]){
-        
-        var dataYearSeries = [
-          {
-            x: "Venda Mensal Atual",
-            y: Number(this.use.resultados[0]),
-            color: colors[0],
-          },
-          {
-            x: "Venda Mensal com a UseCash",
-            y: Number(this.use.projecao[0]),
-            color: colors[1],
-          },
-          {
-            x:"Aumento nas Vendas",
-            y: Number(this.use.melhorCenario[1]),
-            color: colors[2],
-          },
-        ];
-    
-        return dataYearSeries;
-      }
-    
-    
-    //var dataSet = this.shuffleArray(arrayData);
-  
+  public makeData(): any {
+    if (this.use.melhorCenario[1]) {
+
+      var dataYearSeries = [
+        {
+          x: "Venda Mensal Atual",
+          y: Number(this.use.resultados[0]),
+          color: colors[0],
+        },
+        {
+          x: "Venda Mensal com a UseCash",
+          y: Number(this.use.projecao[0]),
+          color: colors[1],
+        },
+        {
+          x: "Aumento nas Vendas",
+          y: Number(this.use.melhorCenario[1]),
+          color: colors[2],
+        },
+      ];
+
+      return dataYearSeries;
+    }
   }
   public makeData2(): any {
-    //alert(this.use.melhorCenario[1])
-      if(this.use.melhorCenario[1]){
-        
-        var dataYearSeries = [
-          {
-            x: "Venda Anual Atual",
-            y: Number(this.use.resultados[0])*12,
-            color: colors[0],
-          },
-          {
-            x: "Venda Anual com a UseCash",
-            y: Number(this.use.projecao[0])*12,
-            color: colors[1],
-          },
-          {
-            x:"Aumento nas Vendas",
-            y: Number(this.use.melhorCenario[1])*12,
-            color: colors[2],
-          },
-        ];
-    
-        return dataYearSeries;
-      }
-  }
-    
-    //var dataSet = this.shuffleArray(arrayData);
-  
-  
+    if (this.use.melhorCenario[1]) {
 
-  public shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
+      var dataYearSeries = [
+        {
+          x: "Venda Anual Atual",
+          y: Number(this.use.resultados[0]) * 12,
+          color: colors[0],
+        },
+        {
+          x: "Venda Anual com a UseCash",
+          y: Number(this.use.projecao[0]) * 12,
+          color: colors[1],
+        },
+        {
+          x: "Aumento nas Vendas",
+          y: Number(this.use.melhorCenario[1]) * 12,
+          color: colors[2],
+        },
+      ];
 
-  public updateQuarterChart(sourceChart, destChartIDToUpdate) {
-    var series = [];
-    var seriesIndex = 0;
-    var colors = [];
-
-    if (sourceChart.w.globals.selectedDataPoints[0]) {
-      var selectedPoints = sourceChart.w.globals.selectedDataPoints;
-      for (var i = 0; i < selectedPoints[seriesIndex].length; i++) {
-        var selectedIndex = selectedPoints[seriesIndex][i];
-        var yearSeries = sourceChart.w.config.series[seriesIndex];
-        series.push({
-          name: yearSeries.data[selectedIndex].x,
-          data: yearSeries.data[selectedIndex].quarters
-        });
-        colors.push(yearSeries.data[selectedIndex].color);
-      }
-
-      if (series.length === 0)
-        series = [
-          {
-            data: []
-          }
-        ];
-
-      return window.ApexCharts.exec(destChartIDToUpdate, "updateOptions", {
-        series: series,
-        colors: colors,
-        fill: {
-          colors: colors
-        }
-      });
+      return dataYearSeries;
     }
   }
-
 }

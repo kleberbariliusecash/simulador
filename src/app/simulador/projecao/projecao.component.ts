@@ -129,5 +129,8 @@ export class ProjecaoComponent implements OnInit {
    
 
   }
+  jumbOff(){
+    this.jumb = false;
+  }
 
 }
